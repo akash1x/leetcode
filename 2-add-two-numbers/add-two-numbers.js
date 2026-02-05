@@ -21,8 +21,8 @@ var addTwoNumbers = function(l1, l2) {
         val = sum%10;   
         ansPointer.next = new ListNode(val,null);
         ansPointer=ansPointer.next;
-        l1=l1?.next
-        l2=l2?.next
+        l1=l1?l1.next:l1
+        l2=l2?l2.next:l2
     }
 
     return head.next;
