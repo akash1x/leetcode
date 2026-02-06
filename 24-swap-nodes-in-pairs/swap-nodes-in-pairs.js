@@ -10,22 +10,32 @@
  * @return {ListNode}
  */
 var swapPairs = function(head) {
-    if(!head || !head.next) return head;
-    let dummy = new ListNode(0);
-    dummy.next = head;
-    let prev=dummy;
+    // if(!head || !head.next) return head;
+    // let dummy = new ListNode(0);
+    // dummy.next = head;
+    // let prev=dummy;
  
-    while(prev.next && prev.next.next){
-        let f = prev.next;
-        let s = f.next;
+    // while(prev.next && prev.next.next){
+    //     let f = prev.next;
+    //     let s = f.next;
 
-        f.next = s.next;
-        s.next = f;
-        prev.next = s;
+    //     f.next = s.next;
+    //     s.next = f;
+    //     prev.next = s;
 
-        prev =f;
-    }
+    //     prev =f;
+    // }
 
-    return dummy.next
-    
+
+
+    // return dummy.next
+
+    if(!head || !head.next) return head;
+    let l = head;
+    let r = head.next;
+
+    l.next = swapPairs(r.next)
+    r.next=l;
+
+    return r;
 };
