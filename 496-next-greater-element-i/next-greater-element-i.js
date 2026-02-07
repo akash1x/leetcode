@@ -15,15 +15,12 @@ var nextGreaterElement = function(nums1, nums2) {
             let top=stk[stk.length-1].val;
             if(top>val) {
                 stk.push({val,nge:top})
-                console.log("stack1",stk)
             }
             else{
                 while(stk.length){
                     let x=stk.pop()
                     ref[x.val]=x.nge;
-                    console.log("stack2",stk)
                     let top=stk[stk.length-1]?.val;
-                    console.log('top',top)
                     if(top>val) {
                         stk.push({val,nge:top})
                         break;
