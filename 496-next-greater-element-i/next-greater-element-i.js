@@ -4,42 +4,45 @@
  * @return {number[]}
  */
 var nextGreaterElement = function(nums1, nums2) {
-    let ref={}
-    // First element from back will always have NGE:-1
-    let stk=[{val:nums2[nums2.length-1],nge:-1}];
+    //create a map of num:NGE
+    let ngeMap={}
+
+    let stk=[]
+    // Last element will never have NGE so -1;
+    let n=nums2.length;
+    stk.push(nums2[n-1]);
+    ngeMap[nums2[n-1]]=-1;
 
     //Start from 2nd last element
-    for(let i=nums2.length-2;i>=0;i--){
-            let val=nums2[i]
-            console.log("val",val)
-            let top=stk[stk.length-1].val;
-            if(top>val) {
-                stk.push({val,nge:top})
-            }
-            else{
-                while(stk.length){
-                    let x=stk.pop()
-                    ref[x.val]=x.nge;
-                    let top=stk[stk.length-1]?.val;
-                    if(top>val) {
-                        stk.push({val,nge:top})
-                        break;
-                    }
-                }
-                if(stk.length===0){
-                    stk.push({val,nge:-1});
+    for(i=n-2;i>=0;i--){
+        // if curr element is less than top of stack then top is NGE for that element
+        let top = stk[stk.length-1];
+        if(nums2[i]<top){
+            ngeMap[nums2[i]]=top;
+        }else{
+            //keep popping till we find NGE
+            while(stk.length){
+                if(nums2[i]>stk[stk.length-1]){
+                    stk.pop();
+                }else{
+                    ngeMap[nums2[i]]=stk[stk.length-1]
+                    break;
                 }
             }
+          
+            // if stack becomes empty, there NGE does not exists 
+            if(stk.length==0){
+                ngeMap[nums2[i]]=-1;
+            }
+           
+        }
+        stk.push(nums2[i])
     }
-    while(stk.length){
-         let x= stk.pop()   
-         ref[x.val]=x.nge;
-    }
-    console.log(ref)
-    let res=[]
-    for(let i=0;i<nums1.length;i++){
-        res.push(ref[nums1[i]])
-    }
-  
-    return res
+     // Now our map will contain all the NGE elements
+        let ans=[]
+        for(let i=0;i<nums1.length;i++){
+            ans.push(ngeMap[nums1[i]]);
+        }
+
+        return ans
 };
