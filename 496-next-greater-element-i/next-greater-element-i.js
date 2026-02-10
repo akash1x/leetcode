@@ -19,6 +19,8 @@ var nextGreaterElement = function(nums1, nums2) {
         let top = stk[stk.length-1];
         if(nums2[i]<top){
             ngeMap[nums2[i]]=top;
+            //push the curr element as they can be NGE for other element
+            stk.push(nums2[i]);
         }else{
             //keep popping till we find NGE
             while(stk.length){
@@ -26,23 +28,24 @@ var nextGreaterElement = function(nums1, nums2) {
                     stk.pop();
                 }else{
                     ngeMap[nums2[i]]=stk[stk.length-1]
+                    stk.push(nums2[i])
                     break;
                 }
             }
-          
             // if stack becomes empty, there NGE does not exists 
             if(stk.length==0){
                 ngeMap[nums2[i]]=-1;
+                stk.push(nums2[i]);
             }
-           
         }
-        stk.push(nums2[i])
+
     }
      // Now our map will contain all the NGE elements
         let ans=[]
         for(let i=0;i<nums1.length;i++){
             ans.push(ngeMap[nums1[i]]);
         }
+
 
         return ans
 };
