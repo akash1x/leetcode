@@ -13,7 +13,7 @@ var search = function(nums, target) {
 
         //left sorted finding inflexion point
         else if(nums[mid]>=nums[l]){
-            if(target>=nums[l] && target<=nums[mid]){
+            if(target>=nums[l] && target<nums[mid]){
                 // target must be in [l,mid] range;
                 r=mid-1;
             }else{
@@ -23,7 +23,7 @@ var search = function(nums, target) {
         //Right Sorted
         else{
             // target must be in [mid,right] range;
-            if(target >= nums[mid]&&target<=nums[r]){
+            if(target > nums[mid]&&target<=nums[r]){
                 l=mid+1;
             }else{
                 r=mid-1;
