@@ -16,7 +16,7 @@ var guessNumber = function(n) {
     let r = n;
 
     while(l<=r){
-        let numPicked = Math.floor((l+r)/2)
+        let numPicked = l+Math.floor((r-l)/2)
 
         //Correct number picked
         if(guess(numPicked)===0){
